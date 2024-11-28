@@ -189,6 +189,6 @@ mod tests {
                 assert!(server_count > 0);
                 assert_eq!(client_total, server_count);
             }
-        )        ;
+        );
     }
 }
