@@ -25,7 +25,7 @@ where
     }
 }
 
-struct AsyncServer<Request, Response>
+pub struct AsyncServer<Request, Response>
 where
     Request: Send + Sync + Clone,
     Response: Send + Sync + Clone,
@@ -94,7 +94,7 @@ where
     }
 }
 
-struct AsyncClient<Request, Response>
+pub struct AsyncClient<Request, Response>
 where
     Request: Send + Sync + Clone,
     Response: Send + Sync + Clone,
