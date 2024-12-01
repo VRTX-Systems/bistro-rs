@@ -9,7 +9,7 @@ where
     Request: Send + Sync + Clone,
     Response: Send + Sync + Clone,
 {
-    pub value: Request,
+    value: Request,
     id: usize,
     server: &'svr mut AsyncServer<Request, Response>,
 }
@@ -22,6 +22,9 @@ where
     pub async fn submit(self, value: Response) -> Result<(), BartenderErrors> {
         self.server.response_channel.publish(self.id.into(), value).await?;
         Ok(())
+    }
+    pub fn value(&self) -> &Request {
+        &self.value
     }
 }
 
@@ -139,6 +142,10 @@ where
     }
 }
 
+unsafe impl<Request:Sync + Send +Clone, Response:Sync +Send + Clone> Send for AsyncClient<Request, Response>{}
+unsafe impl<Request:Sync + Send +Clone, Response:Sync +Send + Clone>Sync for AsyncClient<Request, Response>{}
+unsafe impl<Request:Sync + Send +Clone, Response:Sync +Send + Clone> Send for AsyncServer<Request, Response>{}
+unsafe impl<Request:Sync + Send +Clone, Response:Sync +Send + Clone> Sync for AsyncServer<Request, Response>{}
 
 #[cfg(test)]
 mod tests {

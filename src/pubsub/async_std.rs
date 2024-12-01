@@ -117,6 +117,11 @@ impl <T> AsyncSubscriber<T> {
     }
 }
 
+unsafe impl<T: Send +Sync + Clone> Send for AsyncSubscriber<T> {}
+unsafe impl<T: Send +Sync + Clone> Sync for AsyncSubscriber<T> {}
+unsafe impl<T: Send +Sync + Clone> Send for AsyncPublisher<T> {}
+unsafe impl<T: Send +Sync + Clone> Sync for AsyncPublisher<T> {}
+
 #[cfg(test)]
 mod test {
     use std::ops::Div;
