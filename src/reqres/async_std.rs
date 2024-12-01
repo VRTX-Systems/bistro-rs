@@ -9,7 +9,7 @@ where
     Request: Send + Sync + Clone,
     Response: Send + Sync + Clone,
 {
-    value: Request,
+    pub value: Request,
     id: usize,
     server: &'svr mut AsyncServer<Request, Response>,
 }
